@@ -9,9 +9,7 @@ class AppConfig:
     """
 
     # Excel file containing experiment root paths
-    # Example path stored in Excel:
-    # C:\Users\mt1102\Box\Nabeel Tahir Meetings\Meetings\Weekly Meetings\Meeting March 2026\Experiment 3_18_2026
-    excel_file: str = r"C:\Users\mt1102\Documents\Python Scripts\CellTrackScatterPlots\LinktoExperiments.xlsx"
+    excel_file: str = r"./LinktoExperiments.xlsx"
 
     # Column in Excel that stores experiment root path
     experiment_path_column: str = "experiment_path"
@@ -19,7 +17,7 @@ class AppConfig:
     # Optional label column in Excel
     experiment_label_column: str = "experiment_label"
 
-    # Samples to process
+    # Candidate samples to check dynamically
     sample_names: List[str] = field(default_factory=lambda: ["Sample 1", "Sample 2"])
 
     # Sample -> run mapping
@@ -47,5 +45,5 @@ class AppConfig:
     # Plot settings
     figure_dpi: int = 300
     annotate_ids: bool = False
-    use_linear_classification_for_color: bool = True
+    use_linear_classification_for_color: bool = False
     show_plot: bool = False

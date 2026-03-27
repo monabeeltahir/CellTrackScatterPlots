@@ -17,13 +17,12 @@ def create_quadratic_scatter_plot(
     output_png: Path,
     title: str,
     annotate_ids: bool = False,
-    use_linear_classification_for_color: bool = True,
+    use_linear_classification_for_color: bool = False,
     dpi: int = 300,
     show_plot: bool = False,
 ) -> None:
     """
     Create scatter plot of a2_quad vs b1_quad.
-    Saves directly to the specified PNG path.
     """
 
     plt.figure(figsize=(8, 6))
@@ -35,8 +34,8 @@ def create_quadratic_scatter_plot(
 
         if not df_not_deflected.empty:
             plt.scatter(
-                df_not_deflected["a2_quad"],
                 df_not_deflected["b1_quad"],
+                df_not_deflected["a2_quad"],
                 marker="o",
                 alpha=0.8,
                 label="Not deflected",
@@ -44,8 +43,8 @@ def create_quadratic_scatter_plot(
 
         if not df_deflected.empty:
             plt.scatter(
-                df_deflected["a2_quad"],
                 df_deflected["b1_quad"],
+                df_deflected["a2_quad"],
                 marker="x",
                 alpha=0.8,
                 label="Deflected",
@@ -53,16 +52,16 @@ def create_quadratic_scatter_plot(
 
         if not df_unknown.empty:
             plt.scatter(
-                df_unknown["a2_quad"],
                 df_unknown["b1_quad"],
+                df_unknown["a2_quad"],
                 marker="s",
                 alpha=0.8,
                 label="Unknown",
             )
     else:
         plt.scatter(
-            df["a2_quad"],
             df["b1_quad"],
+            df["a2_quad"],
             marker="o",
             alpha=0.8,
             label="Cells",
@@ -77,8 +76,8 @@ def create_quadratic_scatter_plot(
                 alpha=0.7,
             )
 
-    plt.xlabel("a2_quad")
-    plt.ylabel("b1_quad")
+    plt.ylabel("a2_quad")
+    plt.xlabel("b1_quad")
     plt.title(title)
     plt.grid(True, alpha=0.3)
     plt.legend()

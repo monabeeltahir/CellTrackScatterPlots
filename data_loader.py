@@ -15,7 +15,7 @@ def read_csv_if_exists(csv_path: Path) -> Optional[pd.DataFrame]:
     try:
         return pd.read_csv(csv_path)
     except Exception as exc:
-        print(f"[ERROR] Failed to read CSV: {csv_path}\n        Reason: {exc}")
+        print(f"[ERROR] Failed to read CSV: {csv_path}\nReason: {exc}")
         return None
 
 

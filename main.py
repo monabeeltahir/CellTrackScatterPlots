@@ -2,7 +2,7 @@ from pathlib import Path
 
 from config import AppConfig
 from data_loader import load_experiment_table, load_quadratic_and_linear_data
-from path_utils import build_sample_paths
+from path_utils import build_sample_paths, get_existing_samples
 from plotter import create_quadratic_scatter_plot, save_merged_dataframe
 
 
@@ -66,7 +66,7 @@ def process_one_condition(
     )
 
     if df is None or df.empty:
-        print(f"[WARN] No usable data found for this combination.")
+        print("[WARN] No usable data found for this combination.")
         return
 
     merged_csv_path = quad_dir / cfg.merged_output_filename
@@ -105,7 +105,20 @@ def main() -> None:
         experiment_root = str(row[cfg.experiment_path_column]).strip()
         experiment_label = get_experiment_label(row, cfg, experiment_root)
 
-        for sample_name in cfg.sample_names:
+        existing_samples = get_existing_samples(
+            experiment_root=experiment_root,
+            candidate_samples=cfg.sample_names,
+        )
+
+        if not existing_samples:
+            print("=" * 100)
+            print(f"[WARN] No sample folders found in experiment: {experiment_root}")
+            continue
+
+        print("=" * 100)
+        print(f"[INFO] Found samples for {experiment_label}: {existing_samples}")
+
+        for sample_name in existing_samples:
             if sample_name not in cfg.sample_run_map:
                 print(f"[WARN] No run mapping found for {sample_name}. Skipping.")
                 continue
